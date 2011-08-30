@@ -25,17 +25,17 @@
                 var colladaScene = CubicVR.loadCollada("./spacesuit-scene.dae","./");
 
                 // need to know it's name in the default scene
-                var duckMesh = colladaScene.getSceneObject("Mesh").obj;
-
+                var astronautMesh = colladaScene.getSceneObject("astronaut").obj;
+                
                 // SceneObject container for the mesh
-                var duckObject = new CubicVR.SceneObject(duckMesh);
+                var astronautObject = new CubicVR.SceneObject(astronautMesh);
 
                 // Add SceneObject containing the mesh to the scene
-                scene.bindSceneObject(duckObject);
+                scene.bindSceneObject(astronautObject);
 
                 // set initial camera position and target
-                scene.camera.position = [100, 100, 100];
-                scene.camera.target = [0, 70, 0];
+                scene.camera.position = [3, 3, 3];
+                scene.camera.target = [0, 0, 0];
 
                 // Add a simple directional light
                 scene.bindLight(new CubicVR.Light({type:CubicVR.enums.light.type.DIRECTIONAL,specular:[1,1,1],direction:CubicVR.vec3.normalize([-0.2,-1,-0.5])}));
