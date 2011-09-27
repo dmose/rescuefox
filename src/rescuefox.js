@@ -233,7 +233,6 @@
       
       var foxMesh = loadThreeMesh(rome_fox_model);
 
-
       var sceneObj = new CubicVR.SceneObject({
         mesh: foxMesh,
         position: CubicVR.vec3.subtract( parentAsteroid.position, [20.0, 20.0, 20.0] ),
@@ -244,9 +243,20 @@
       var rigidObj = new CubicVR.RigidBody(sceneObj, {
         type: CubicVR.enums.physics.body.DYNAMIC,
         mass: 10,
-        collision: foxObject.collision
+        collision: foxObject.collision,
+        blocker: true
       });
-      
+      scene.bindSceneObject( sceneObj );
+      sceneObj.addEvent({
+        id: CubicVR.enums.event.CONTACT,
+        properties: {
+          fox: sceneObj
+        },
+        action: function (event, handler) {
+          console.log("in action call!");
+        }
+      });
+
       sceneObj.getInstanceMaterials()[0].color =[1,0,1];
 
       // parentAsteroid.bindChild(sceneObj);
@@ -561,8 +571,11 @@
             }
         }
 
-        physics.stepSimulation(timer.getLastUpdateSeconds());
 
+        physics.stepSimulation(timer.getLastUpdateSeconds());
+        physics.triggerEvents();
+        scene.runEvents(seconds);
+        
         var playerPosition = player.getSceneObject().position,
             playerLastPosition = player.getSceneObject().lposition,
             playerSceneObj = player.getSceneObject(),
