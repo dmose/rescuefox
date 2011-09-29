@@ -241,12 +241,11 @@
       });
 
       var rigidObj = new CubicVR.RigidBody(sceneObj, {
-        type: CubicVR.enums.physics.body.DYNAMIC,
-        mass: 10,
+        type: CubicVR.enums.physics.body.GHOST,
         collision: foxObject.collision,
         blocker: true
       });
-      scene.bindSceneObject( sceneObj );
+
       sceneObj.addEvent({
         id: CubicVR.enums.event.CONTACT,
         properties: {
